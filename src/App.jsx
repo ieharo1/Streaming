@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import FormFirebase from './page/formulario';
+import HomePage from './page/homepage'
 import './App.css';
 import { AuthProvider } from './context/AuthContext';
 
@@ -7,8 +7,7 @@ function App() {
   return (
     <div>
       <AuthProvider>
-          <h1>proyecto</h1>
-          <FormFirebase/>
+          <HomePage/>
         </AuthProvider>
     </div>
   );

@@ -1,38 +1,120 @@
-.App {
+/* Estilo global */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo del encabezado y la navegación */
+header {
+  background-color: #800080; /* Púrpura */
+  padding: 15px 0;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+/* Estilo del héroe (sección principal) */
+.hero {
+  text-align: center;
+  padding: 100px 0;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.hero a {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #800080; /* Púrpura */
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.hero a:hover {
+  background-color: #fff;
+  color: #800080; /* Púrpura */
+}
+
+/* Estilo de las secciones */
+.featured {
+  background-color: #fff;
+  padding: 50px 0;
+}
+
+.categories {
+  background-color: #000;
+  padding: 50px 0;
+}
+
+/* Estilo del pie de página */
+footer {
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+footer a {
+  text-decoration: none;
+  color: #800080; /* Púrpura */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Estilo del logotipo del pie de página */
+.footer-logo img {
+  width: 120px;
+  height: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Estilo de la lista de enlaces del pie de página */
+.footer-links ul {
+  list-style: none;
+  padding: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.footer-links ul li {
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilo de derechos de autor en el pie de página */
+footer p {
+  font-size: 0.8rem;
+}
+/* HomePage.css */
+.logo {
+  width: 140px; /* Ajusta el ancho según lo necesites */
+  height: auto; /* Esto mantiene la proporción de aspecto */
 }
