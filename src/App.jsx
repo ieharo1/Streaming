@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import HomePage from './page/homepage';
-import FormFirebase from './page/formulario';
+import LoginFirebase from './page/formularioLogin';
+import RegisterFirebase from './page/formularioRegister';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
@@ -10,8 +11,11 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/page/formulario">
-              <FormFirebase />
+            <Route path="/page/Login">
+              <LoginFirebase />
+            </Route>
+            <Route path="/page/Register">
+              <RegisterFirebase />
             </Route>
             <Route path="/">
               <HomePage />

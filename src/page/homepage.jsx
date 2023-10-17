@@ -3,8 +3,8 @@ import "../App.css";
 import logonb from '../images/logopmnb.png'
 import logobn from '../images/logopmbn.png'
 import { Link } from 'react-router-dom';
+
 function HomePage(){
-    
     return(     
         <div>
             <header>
@@ -12,7 +12,7 @@ function HomePage(){
                 <a href="#" ><img class="logo" src={logonb} alt="PROTOTIPE MEDIA" /></a>
                     <ul>
                         
-                        <li><Link to="/page/formulario">Comenzar</Link></li>
+                        <li><Link to="/page/Login">Comenzar</Link></li>
                     </ul>
                 </nav>
             </header>
@@ -20,7 +20,7 @@ function HomePage(){
                 <section class="hero">
                     <h1>Bienvenido a PROTOTIPE MEDIA</h1>
                     <p>Las mejores series y películas en un solo lugar.</p>
-                    <a href="#">Comenzar</a>
+                    <Link to="/page/Login">Comenzar</Link>
                 </section>
                 <section class="featured">
                     <h1>listar las series o películas destacadas</h1>

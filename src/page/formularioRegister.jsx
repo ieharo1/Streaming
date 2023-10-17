@@ -1,7 +1,6 @@
 import React, { useState} from "react";
-import "../App.css";
+import "../Formulario.css";
 import { useAuth } from "../context/AuthContext";
-
 
 function FormFirebase(){
     const auth=useAuth();
@@ -13,16 +12,6 @@ function FormFirebase(){
       e.preventDefault();
       auth.register(emailRegister, passwordRegister, newDisplayName);
     };
-    const [email, setEmail]= useState("");
-    const [password, setPassword]= useState("");
-    const handleLogin=(e)=>{
-        e.preventDefault();
-        auth.login(email,password);
-    };
-    const handleGoogle=(e)=>{
-        e.preventDefault();
-        auth.loginGoogle();
-    };
     const handleLogout=(e)=>{
         e.preventDefault();
         auth.logout();
@@ -30,6 +19,8 @@ function FormFirebase(){
    
     return(
         <div className="App">
+                <div className="form form-center">
+
             {displayName && <h1>{displayName}</h1>}
 
             <form className="form">
@@ -38,16 +29,12 @@ function FormFirebase(){
                 <input onChange={(e)=>setEmailRegister(e.target.value)} type="email" className="input"/>
                 <input onChange={(e)=> setPasswordRegister(e.target.value)} type="password" className="input" />
                 <button onClick={(e)=>handleRegister(e)} className="button">submit</button>
-            </form>
-            <form className="form">
-                <h3 className="title">Login</h3>
-                <input onChange={(e)=> setEmail(e.target.value)}type="email" className="input" />
-                <input onChange={(e)=> setPassword(e.target.value)}type="password" className="input"/>
-                <button onClick={(e)=> handleLogin(e)} className="button">submit</button>
-                <button onClick={(e)=> handleGoogle(e)}className="button">Google</button>
+                
             </form>
             <button onClick={(e)=>handleLogout(e)}className="button">Logout</button>
         </div>
+        </div>
+
     );
 }
 export default FormFirebase;
