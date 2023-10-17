@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import "../Formulario.css";
+import "../styles/Formulario.css";
 import { useAuth } from "../context/AuthContext";
 import logobn from '../images/logopmbn.png';
 import { Link } from 'react-router-dom';

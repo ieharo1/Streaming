@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import "../App.css";
+import "../styles/App.css";
 import logonb from '../images/logopmnb.png'
 import logobn from '../images/logopmbn.png'
 import { Link } from 'react-router-dom';
