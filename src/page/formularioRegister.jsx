@@ -26,7 +26,7 @@ function FormFirebase() {
         {displayName && <h1>Bienvenido: {displayName}</h1>}
         <form className="form">
           <div className="logo-container">
-             <Link to="/">
+            <Link to="/">
                 <img className="logo" src={logobn} alt="PROTOTIPE MEDIA" />
             </Link>
           </div>

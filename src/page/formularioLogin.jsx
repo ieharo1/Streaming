@@ -24,7 +24,8 @@ function FormFirebase() {
 
   return (
     <div className="App">
-      {displayName && <h1>{displayName}</h1>}
+      {displayName && <h1>Bienvenido: {displayName}</h1>}
+
       
       <form className="form">
       <div className="logo-container">

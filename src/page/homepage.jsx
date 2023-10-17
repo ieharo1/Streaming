@@ -9,7 +9,9 @@ function HomePage(){
         <div>
             <header>
                 <nav>
-                <a href="#" ><img class="logo" src={logonb} alt="PROTOTIPE MEDIA" /></a>
+                <Link to="/">
+                    <img class="logo" src={logonb} alt="PROTOTIPE MEDIA" />
+                </Link>
                     <ul>
                         
                         <li><Link to="/page/Login">Comenzar</Link></li>
@@ -33,8 +35,9 @@ function HomePage(){
             <footer>
                 <div class="footer-content">
                     <div class="footer-logo">
-                      <img class="logo" src={logobn} alt="PROTOTIPE MEDIA" />
-
+                        <Link to="/">
+                            <img class="logo" src={logobn} alt="PROTOTIPE MEDIA" />
+                        </Link>
                     </div>
                     <div class="footer-links">
                         <ul>
