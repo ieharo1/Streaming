@@ -2,20 +2,17 @@ import React, { useState} from "react";
 import "../App.css";
 import logonb from '../images/logopmnb.png'
 import logobn from '../images/logopmbn.png'
-import FormFirebase from '../page/formulario';
-
-
-import { useAuth } from "../context/AuthContext";
-
-
+import { Link } from 'react-router-dom';
 function HomePage(){
+    
     return(     
-        <body>
+        <div>
             <header>
                 <nav>
                 <a href="#" ><img class="logo" src={logonb} alt="PROTOTIPE MEDIA" /></a>
                     <ul>
-                        <li><a href="#">Comenzar</a></li>
+                        
+                        <li><Link to="/page/formulario">Comenzar</Link></li>
                     </ul>
                 </nav>
             </header>
@@ -50,7 +47,7 @@ function HomePage(){
                 </div>
                 <p>&copy; 2023 PROTOTIPE MEDIA. Todos los derechos reservados.</p>
             </footer>
-        </body>
+        </div>
     );
 }
 export default HomePage;

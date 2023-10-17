@@ -8,13 +8,9 @@ function FormFirebase(){
     const {displayName}=auth.user;
     const [emailRegister, setEmailRegister]=useState("");
     const [passwordRegister, setPasswordRegister]=useState("");
-
-
-    const [newDisplayName, setNewDisplayName] = useState(""); // Nuevo estado para el displayName
-
+    const [newDisplayName, setNewDisplayName] = useState(""); 
     const handleRegister = (e) => {
       e.preventDefault();
-      // Registra al usuario con el displayName proporcionado
       auth.register(emailRegister, passwordRegister, newDisplayName);
     };
     const [email, setEmail]= useState("");

@@ -29,7 +29,6 @@ export function AuthProvider({children}){
     const register = async (email, password, displayName) => {
         const response = await createUserWithEmailAndPassword(auth, email, password);
         if (displayName) {
-          // Actualiza el displayName si se proporciona
           await updateProfile(response.user, { displayName: displayName });
         }
         console.log(response);
