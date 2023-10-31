@@ -30,7 +30,7 @@ function FormFirebase() {
       <form className="form">
       <div className="logo-container">
         <Link to="/">
-            <img className="logo" src={logobn} alt="PROTOTIPE MEDIA" />
+            <img className="logo" src={logobn} alt="PROTOTYPE MEDIA" />
         </Link>
         <h3 className="title">Inicia sesión</h3>
       </div>
@@ -58,7 +58,7 @@ function FormFirebase() {
           Iniciar sesión con Google
         </div>
         <br />
-            <Link to="/page/Register" style={{ textDecoration: 'none', color: '#fff' }}>¿Primera vez en Prototipe Media? Regístrate ahora.</Link>
+            <Link to="/page/Register" style={{ textDecoration: 'none', color: '#fff' }}>¿Primera vez en Prototype Media? Regístrate ahora.</Link>
         <br />
 
       </form>

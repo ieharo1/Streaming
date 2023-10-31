@@ -10,7 +10,7 @@ function HomePage(){
             <header>
                 <nav>
                 <Link to="/">
-                    <img class="logo" src={logonb} alt="PROTOTIPE MEDIA" />
+                    <img class="logo" src={logonb} alt="PROTOTYPE MEDIA" />
                 </Link>
                     <ul>
                         
@@ -20,7 +20,7 @@ function HomePage(){
             </header>
             <main>
                 <section class="hero">
-                    <h1>Bienvenido a PROTOTIPE MEDIA</h1>
+                    <h1>Bienvenido a PROTOTYPE MEDIA</h1>
                     <p>Las mejores series y películas en un solo lugar.</p>
                     <Link to="/page/Login">Comenzar</Link>
                 </section>
@@ -36,7 +36,7 @@ function HomePage(){
                 <div class="footer-content">
                     <div class="footer-logo">
                         <Link to="/">
-                            <img class="logo" src={logobn} alt="PROTOTIPE MEDIA" />
+                            <img class="logo" src={logobn} alt="PROTOTYPE MEDIA" />
                         </Link>
                     </div>
                     <div class="footer-links">
@@ -48,7 +48,7 @@ function HomePage(){
                         </ul>
                     </div>
                 </div>
-                <p>&copy; 2023 PROTOTIPE MEDIA. Todos los derechos reservados.</p>
+                <p>&copy; 2023 PROTOTYPE MEDIA. Todos los derechos reservados.</p>
             </footer>
         </div>
     );

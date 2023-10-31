@@ -4,8 +4,6 @@ import { useAuth } from "../context/AuthContext";
 import logobn from '../images/logopmbn.png';
 import { Link } from 'react-router-dom';
 
-
-
 function FormFirebase() {
     const auth = useAuth();
     const { displayName } = auth.user;
@@ -27,7 +25,7 @@ function FormFirebase() {
         <form className="form">
           <div className="logo-container">
             <Link to="/">
-                <img className="logo" src={logobn} alt="PROTOTIPE MEDIA" />
+                <img className="logo" src={logobn} alt="PROTOTYPE MEDIA" />
             </Link>
           </div>
           <h3 className="title">Registro de Usuario</h3>
