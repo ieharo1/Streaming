@@ -4,6 +4,7 @@ import HomePage from './page/homepage';
 import LoginFirebase from './page/formularioLogin';
 import RegisterFirebase from './page/formularioRegister';
 import { AuthProvider } from './context/AuthContext';
+import RedirectedPage from './page/formularioRegister';
 
 function App() {
   return (
@@ -11,15 +12,10 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/page/Login">
-              <LoginFirebase />
-            </Route>
-            <Route path="/page/Register">
-              <RegisterFirebase />
-            </Route>
-            <Route path="/">
-              <HomePage />
-            </Route>
+            <Route path="/page/Login" component={LoginFirebase}/>
+            <Route path="/redirected" component={RedirectedPage}/>
+            <Route path="/page/Register" component={RegisterFirebase}/>
+            <Route path="/" component={HomePage}/>
           </Switch>
         </div>
       </Router>

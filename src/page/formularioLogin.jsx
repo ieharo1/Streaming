@@ -2,20 +2,27 @@ import React, { useState } from "react";
 import "../styles/Formulario.css";
 import { useAuth } from "../context/AuthContext";
 import logobn from '../images/logopmbn.png'
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
 
 function FormFirebase() {
   const auth = useAuth();
   const { displayName } = auth.user;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const history = useHistory();
+
+
   const handleLogin = (e) => {
     e.preventDefault();
-    auth.login(email, password);
+    auth.login(email, password).then(()=>{
+      history.push('/redirected');
+    });
   };
   const handleGoogle = (e) => {
     e.preventDefault();
-    auth.loginGoogle();
+    auth.loginGoogle().then(()=>{
+      history.push('/redirected');
+    });
   };
   const handleLogout = (e) => {
     e.preventDefault();
