@@ -1,45 +1,58 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/App.css";
-import logonb from '../images/logopmnb.png'
-import logobn from '../images/logopmbn.png'
 import { Link } from 'react-router-dom';
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { app } from "../firebase/firebase.config";
 
-function HomePage(){
-    return(     
+function HomePage() {
+    const [logoURL, setLogoURL] = useState(null);
+
+    useEffect(() => {
+        const storage = getStorage(app);
+        const logoRef = ref(storage, "logopmbn.png");
+
+        getDownloadURL(logoRef)
+            .then((url) => {
+                setLogoURL(url);
+            })
+            .catch((error) => {
+                console.error("Error al obtener URL del logotipo", error);
+            });
+    }, []);
+
+    return (
         <div>
             <header>
                 <nav>
-                <Link to="/">
-                    <img class="logo" src={logonb} alt="PROTOTYPE MEDIA" />
-                </Link>
+                    <Link to="/">
+                        <img className="logo" src={logoURL} />
+                    </Link>
                     <ul>
-                        
                         <li><Link to="/page/Login">Comenzar</Link></li>
                     </ul>
                 </nav>
             </header>
             <main>
-                <section class="hero">
+                <section className="hero">
                     <h1>Bienvenido a PROTOTYPE MEDIA</h1>
                     <p>Las mejores series y películas en un solo lugar.</p>
                     <Link to="/page/Login">Comenzar</Link>
                 </section>
-                <section class="featured">
-                    <h1>listar las series o películas destacadas</h1>
+                <section className="featured">
+                    <h1>Listar las series o películas destacadas</h1>
                 </section>
-
-                <section class="categories">
-                    <h1>listar las series o películas destacadas</h1>
+                <section className="categories">
+                    <h1>Listar las series o películas destacadas</h1>
                 </section>
             </main>
             <footer>
-                <div class="footer-content">
-                    <div class="footer-logo">
+                <div className="footer-content">
+                    <div className="footer-logo">
                         <Link to="/">
-                            <img class="logo" src={logobn} alt="PROTOTYPE MEDIA" />
+                            <img className="logo" src={logoURL} />
                         </Link>
                     </div>
-                    <div class="footer-links">
+                    <div className="footer-links">
                         <ul>
                             <li><a href="#">Términos de uso</a></li>
                             <li><a href="#">Política de privacidad</a></li>
@@ -53,4 +66,5 @@ function HomePage(){
         </div>
     );
 }
+
 export default HomePage;

@@ -4,7 +4,7 @@ import HomePage from './page/homepage';
 import LoginFirebase from './page/formularioLogin';
 import RegisterFirebase from './page/formularioRegister';
 import { AuthProvider } from './context/AuthContext';
-import RedirectedPage from './page/formularioRegister';
+import RedirectedPage from './page/contentpage';
 
 function App() {
   return (

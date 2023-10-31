@@ -1,5 +1,8 @@
 import { initializeApp } from "firebase/app";
 import {getAuth} from "firebase/auth";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyBC7RFqpGk4ffEA_0bzYMRCYZItdDoeOrQ",
   authDomain: "streaming-76d46.firebaseapp.com",
@@ -8,5 +11,5 @@ const firebaseConfig = {
   messagingSenderId: "285083704831",
   appId: "1:285083704831:web:8660fd196b8eb0524bdbca"
 };
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
