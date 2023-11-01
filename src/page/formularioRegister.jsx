@@ -31,10 +31,6 @@ function FormFirebase() {
     auth.register(emailRegister, passwordRegister, newDisplayName);
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    auth.logout();
-  };
 
   return (
     <div className="App">
@@ -72,9 +68,7 @@ function FormFirebase() {
           Registrarse
         </button>
       </form>
-      <button onClick={(e) => handleLogout(e)} className="button">
-        Cerrar sesión
-      </button>
+      
     </div>
   );
 }

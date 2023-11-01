@@ -1,3 +1,4 @@
+/* styles.css o ContentPage.css */
 body {
   font-family: Arial, sans-serif;
   background-color: #000;
@@ -28,11 +29,13 @@ body {
   font-weight: bold;
   text-decoration: none;
   margin-right: 20px;
+  cursor: pointer; /* Cambia el puntero a una mano */
 }
 
 .user-profile {
   display: flex;
   align-items: center;
+  cursor: pointer; /* Cambia el puntero a una mano */
 }
 
 .user-profile img {
@@ -42,7 +45,168 @@ body {
   margin-right: 10px;
 }
 
+.user-profile .user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile .user-info p {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer; /* Cambia el puntero a una mano */
+}
+
+/* Estilo para el menú desplegable */
+.user-menu {
+  position: absolute;
+  top: calc(100% + 10px); /* Coloca el menú debajo del perfil */
+  left: 50%; /* Centra el menú horizontalmente */
+  transform: translateX(-50%); /* Alinea el menú al centro */
+  display: none;
+  background-color: #000; /* Cambia el color de fondo a negro */
+  color: #fff; /* Cambia el color del texto a blanco */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px; /* Ancho fijo para el menú */
+  z-index: 1; /* Asegura que el menú esté en la parte superior de otros elementos */
+}
+
+.user-profile:hover .user-menu {
+  display: block; /* Muestra el menú cuando se pasa el puntero sobre el perfil */
+  cursor: default; /* Evita que el puntero cambie en el menú */
+}
+
 .logo img {
   width: 140px;
   height: auto;
+}
+
+/* ... Otros estilos ... */
+.user-menu ul li {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer; /* Cambia el puntero a una mano */
+  list-style: none; /* Quita la viñeta */
+}
+
+.user-menu ul li:last-child {
+  content: none; /* Elimina el punto del último elemento de la lista */
+}
+/* styles.css o ContentPage.css */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #800080; /* Púrpura */
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-links a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 20px;
+  cursor: pointer; /* Cambia el puntero a una mano */
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Cambia el puntero a una mano */
+  position: relative;
+}
+
+.user-profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-profile p {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer; /* Cambia el puntero a una mano */
+}
+
+/* Estilo para el menú desplegable */
+.user-menu {
+  position: absolute;
+  top: 100%; /* Coloca el menú debajo del perfil */
+  left: 0;
+  display: none;
+  background-color: #000; /* Cambia el color de fondo a negro */
+  color: #fff; /* Cambia el color del texto a blanco */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px; /* Ancho fijo para el menú */
+  z-index: 1; /* Asegura que el menú esté en la parte superior de otros elementos */
+}
+
+.user-profile:hover .user-menu {
+  display: block; /* Muestra el menú cuando se pasa el puntero sobre el perfil */
+}
+
+.user-menu ul li {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer; /* Cambia el puntero a una mano */
+  list-style: none; /* Quita la viñeta */
+}
+
+.user-menu ul li:last-child {
+  content: none; /* Elimina el punto del último elemento de la lista */
+}
+
+
+/* Estilo para el menú desplegable */
+.user-menu {
+  position: absolute;
+  top: 100%; /* Coloca el menú debajo del perfil */
+  left: 0;
+  display: none;
+  background-color: #000; /* Cambia el color de fondo a negro */
+  color: #fff; /* Cambia el color del texto a blanco */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px; /* Ancho fijo para el menú */
+  z-index: 1; /* Asegura que el menú esté en la parte superior de otros elementos */
+}
+
+.user-menu ul li {
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer; /* Cambia el puntero a una mano */
+  list-style: none; /* Quita la viñeta */
+  padding: 5px 0; /* Agrega espaciado vertical */
+  transition: color 0.3s; /* Agrega una transición para el color del texto */
+
+  /* Estilo cuando el puntero está sobre la opción */
+  &:hover {
+    color: #800080; /* Cambia el color del texto a morado */
+  }
+}
+
+.user-menu ul li:last-child {
+  content: none; /* Elimina el punto del último elemento de la lista */
 }

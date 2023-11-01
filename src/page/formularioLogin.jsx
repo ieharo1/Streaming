@@ -40,11 +40,7 @@ function FormFirebase() {
     });
   };
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    auth.logout();
-  };
-
+ 
   return (
     <div className="App">
       <form className="form">
@@ -91,9 +87,7 @@ function FormFirebase() {
         </Link>
         <br />
       </form>
-      <button onClick={(e) => handleLogout(e)} className="button">
-        Cerrar sesión
-      </button>
+      
     </div>
   );
 }
