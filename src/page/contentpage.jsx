@@ -1,12 +1,13 @@
 import { app } from "../firebase/firebase.config";
 import React, { useEffect, useState } from "react";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import "../styles/ContentPage.css";
 import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
 function ContentPage() {
+  
   const auth = useAuth();
   const user = useAuth().user;
   const displayName = user ? user.displayName : null;
@@ -83,7 +84,6 @@ function ContentPage() {
             <div className="user-menu">
               <ul>
                 <li onClick={handleLogout}>Cerrar sesión</li>
-                {/* Agrega otros elementos del menú si es necesario */}
               </ul>
             </div>
           )}
@@ -96,12 +96,7 @@ function ContentPage() {
             <button className="close-button" onClick={handleCloseVideo}>
               X
             </button>
-            <ReactPlayer
-              url={process.env.PUBLIC_URL + selectedMovie.videoPath}
-              controls
-              width="100%"
-              height="auto"
-            />
+            
           </div>
         ) : (
           <MovieList onSelect={handleMovieSelect} />
@@ -111,26 +106,90 @@ function ContentPage() {
   );
 }
 
+// ...
+// ...
 const MovieList = ({ onSelect }) => {
-  const movies = [
-    {
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },
-    // Agrega más películas según sea necesario
-  ];
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const storage = getStorage(app);
+    const videosFolderRef = ref(storage, "videos");
+
+    const getMovies = async () => {
+      try {
+        const videosList = await listAll(videosFolderRef);
+
+        const moviesData = [];
+
+        for (const item of videosList.items) {
+          try {
+            const downloadURL = await getDownloadURL(item);
+            const movieInfo = {
+              title: item.name,
+              type: item.name.endsWith('.mp4') ? 'video' : 'image',
+              path: downloadURL,
+            };
+
+            moviesData.push(movieInfo);
+          } catch (error) {
+            console.error("Error al obtener URL del archivo", error);
+          }
+        }
+
+        // Iterar sobre carpetas
+        for (const prefix of videosList.prefixes) {
+          const folderList = await listAll(ref(storage, prefix.fullPath));
+
+          for (const item of folderList.items) {
+            try {
+              const downloadURL = await getDownloadURL(item);
+              const movieInfo = {
+                title: item.name,
+                type: item.name.endsWith('.mp4') ? 'video' : 'image',
+                path: downloadURL,
+              };
+
+              moviesData.push(movieInfo);
+            } catch (error) {
+              console.error("Error al obtener URL del archivo", error);
+            }
+          }
+        }
+
+        setMovies(moviesData);
+      } catch (error) {
+        console.error("Error al obtener la lista de películas", error);
+      }
+    };
+
+    getMovies();
+  }, []);
+
+  const handleItemClick = (media) => {
+    onSelect(media);
+  };
 
   return (
     <div className="movie-list">
-      {movies.map((movie, index) => (
-        <div key={index} className="movie-item" onClick={() => onSelect(movie)}>
-          <img src={process.env.PUBLIC_URL + movie.imagePath} alt={movie.title} />
-          <p>{movie.title}</p>
+      {movies.map((media, index) => (
+        <div key={index} className="movie-item" onClick={() => handleItemClick(media)}>
+          {media.type === 'image' && (
+            <img src={media.path} alt={media.title} />
+          )}
+          {media.type === 'image' && (
+            <div className="video-title">{media.title}</div>
+          )}
+          <ReactPlayer
+              url={media.path}
+              controls
+              width="100%"
+              height="auto"
+            />
         </div>
       ))}
     </div>
   );
 };
+
 
 export default ContentPage;
