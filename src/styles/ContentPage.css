@@ -279,4 +279,52 @@ body {
 }
 
 /* ... (otros estilos) */
+/* ... (otros estilos) */
+
+.video-container {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* ... (otros estilos) */
+/* ContentPage.css */
+
+/* ... (estilos anteriores) */
+
+.video-container {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  background-color: #800080; /* Morado */
+  color: white;
+  border: none;
+  padding: 10px; /* Aumenté el tamaño para que se vea más grande y clickeable */
+  cursor: pointer;
+  border-radius: 5px; /* Agregué bordes redondeados */
+}
+
+/* Estilos para el reproductor de video */
+.react-player {
+  border-radius: 10px; /* Bordes redondeados para el reproductor */
+  overflow: hidden;
+}
+
+/* ... (estilos anteriores) */
+
 

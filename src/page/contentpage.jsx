@@ -56,6 +56,10 @@ function ContentPage() {
     setSelectedMovie(movie);
   };
 
+  const handleCloseVideo = () => {
+    setSelectedMovie(null);
+  };
+
   return (
     <div className="content-page">
       <div className="navbar">
@@ -72,10 +76,7 @@ function ContentPage() {
         </div>
         <div className="user-profile">
           <div className="user-info" onClick={handleProfileClick}>
-            <img
-              src={userPhotoURL}
-              alt="Usuario"
-            />
+            <img src={userPhotoURL} alt="Usuario" />
             <p>{displayName}</p>
           </div>
           {menuVisible && (
@@ -91,12 +92,17 @@ function ContentPage() {
 
       <div className="content-container">
         {selectedMovie ? (
-          <ReactPlayer
-            url={process.env.PUBLIC_URL + selectedMovie.videoPath}
-            controls
-            width="100%"
-            height="auto"
-          />
+          <div className="video-container">
+            <button className="close-button" onClick={handleCloseVideo}>
+              X
+            </button>
+            <ReactPlayer
+              url={process.env.PUBLIC_URL + selectedMovie.videoPath}
+              controls
+              width="100%"
+              height="auto"
+            />
+          </div>
         ) : (
           <MovieList onSelect={handleMovieSelect} />
         )}
@@ -105,67 +111,9 @@ function ContentPage() {
   );
 }
 
-// Nuevo componente MovieList
 const MovieList = ({ onSelect }) => {
-  // Define tu lista de películas con títulos, rutas de imágenes y rutas de video.
   const movies = [
     {
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Billy Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
-      title: "Bylly Ocean",
-      imagePath: "billy.jpg",
-      videoPath: "billy.mp4",
-    },{
       title: "Bylly Ocean",
       imagePath: "billy.jpg",
       videoPath: "billy.mp4",
