@@ -210,3 +210,73 @@ body {
 .user-menu ul li:last-child {
   content: none; /* Elimina el punto del último elemento de la lista */
 }
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra los elementos en el contenedor */
+}
+
+.movie-item {
+  width: 150px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.movie-item:hover {
+  transform: scale(1.1);
+}
+
+.movie-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.movie-item p {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+}
+
+.show-all {
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 200px;
+}
+
+.show-all:hover {
+  transform: none;
+}
+
+.show-all p {
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
+}
+
+/* ... (otros estilos) */
+
+.video-container {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* ... (otros estilos) */
+

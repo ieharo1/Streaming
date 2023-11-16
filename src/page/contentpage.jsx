@@ -4,6 +4,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import "../styles/ContentPage.css";
 import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import ReactPlayer from 'react-player';
 
 function ContentPage() {
   const auth = useAuth();
@@ -12,8 +13,8 @@ function ContentPage() {
   const [userPhotoURL, setUserPhotoURL] = useState(null);
   const [logoURL, setLogoURL] = useState(null);
   const history = useHistory();
-
   const [menuVisible, setMenuVisible] = useState(false);
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -51,6 +52,10 @@ function ContentPage() {
     setMenuVisible(!menuVisible);
   };
 
+  const handleMovieSelect = (movie) => {
+    setSelectedMovie(movie);
+  };
+
   return (
     <div className="content-page">
       <div className="navbar">
@@ -85,10 +90,99 @@ function ContentPage() {
       </div>
 
       <div className="content-container">
-        {/* Contenido de la página */}
+        {selectedMovie ? (
+          <ReactPlayer
+            url={process.env.PUBLIC_URL + selectedMovie.videoPath}
+            controls
+            width="100%"
+            height="auto"
+          />
+        ) : (
+          <MovieList onSelect={handleMovieSelect} />
+        )}
       </div>
     </div>
   );
 }
+
+// Nuevo componente MovieList
+const MovieList = ({ onSelect }) => {
+  // Define tu lista de películas con títulos, rutas de imágenes y rutas de video.
+  const movies = [
+    {
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Billy Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },{
+      title: "Bylly Ocean",
+      imagePath: "billy.jpg",
+      videoPath: "billy.mp4",
+    },
+    // Agrega más películas según sea necesario
+  ];
+
+  return (
+    <div className="movie-list">
+      {movies.map((movie, index) => (
+        <div key={index} className="movie-item" onClick={() => onSelect(movie)}>
+          <img src={process.env.PUBLIC_URL + movie.imagePath} alt={movie.title} />
+          <p>{movie.title}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export default ContentPage;
