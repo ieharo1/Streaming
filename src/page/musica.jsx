@@ -41,12 +41,9 @@ function Musica() {
       .catch((error) => {
         console.error("Error al obtener URL del logo", error);
       });
-
-   // ...
-
 const getMovies = async () => {
   try {
-    const videosFolderRef = ref(storage, "peliculas");
+    const videosFolderRef = ref(storage, "videos");
     const videosList = await listAll(videosFolderRef);
 
     const moviesData = [];

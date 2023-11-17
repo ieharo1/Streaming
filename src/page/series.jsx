@@ -46,7 +46,7 @@ function Series() {
 
 const getMovies = async () => {
   try {
-    const videosFolderRef = ref(storage, "videos");
+    const videosFolderRef = ref(storage, "series");
     const videosList = await listAll(videosFolderRef);
 
     const moviesData = [];

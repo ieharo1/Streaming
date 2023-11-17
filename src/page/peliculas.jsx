@@ -41,12 +41,9 @@ function Peliculas() {
       .catch((error) => {
         console.error("Error al obtener URL del logo", error);
       });
-
-   // ...
-
 const getMovies = async () => {
   try {
-    const videosFolderRef = ref(storage, "videos");
+    const videosFolderRef = ref(storage, "peliculas");
     const videosList = await listAll(videosFolderRef);
 
     const moviesData = [];
@@ -201,3 +198,4 @@ const MovieList = ({ movies, onSelect }) => {
   );
 };
 export default Peliculas;
+  

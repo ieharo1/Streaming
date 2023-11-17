@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
-function ContentPage() {
+const ContentPage = () => {
   const auth = useAuth();
   const user = useAuth().user;
   const displayName = user ? user.displayName : null;
@@ -16,6 +16,8 @@ function ContentPage() {
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [movies, setMovies] = useState([]);
+  const [movies2, setMovies2] = useState([]);
+  const [movies3, setMovies3] = useState([]);
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -42,57 +44,64 @@ function ContentPage() {
         console.error("Error al obtener URL del logo", error);
       });
 
-   // ...
-
-const getMovies = async () => {
-  try {
-    const videosFolderRef = ref(storage, "videos");
-    const videosList = await listAll(videosFolderRef);
-
-    const moviesData = [];
-
-    for (const item of videosList.items) {
+    const getMovies = async (folder) => {
       try {
-        const downloadURL = await getDownloadURL(item);
-        const movieInfo = {
-          title: item.name,
-          type: item.name.endsWith('.mp4') ? 'video' : 'image',
-          folder: 'videos',
-          path: downloadURL,
-        };
+        const videosFolderRef = ref(storage, folder);
+        const videosList = await listAll(videosFolderRef);
 
-        moviesData.push(movieInfo);
-      } catch (error) {
-        console.error("Error al obtener URL del archivo", error);
-      }
-    }
+        const moviesData = [];
 
-    for (const prefix of videosList.prefixes) {
-      const folderList = await listAll(ref(storage, prefix.fullPath));
+        for (const item of videosList.items) {
+          try {
+            const downloadURL = await getDownloadURL(item);
+            const movieInfo = {
+              title: item.name,
+              type: item.name.endsWith('.mp4') ? 'video' : 'image',
+              folder: folder,
+              path: downloadURL,
+            };
 
-      for (const item of folderList.items) {
-        try {
-          const downloadURL = await getDownloadURL(item);
-          const movieInfo = {
-            title: item.name,
-            type: item.name.endsWith('.mp4') ? 'video' : 'image',
-            folder: prefix.name,
-            path: downloadURL,
-          };
-
-          moviesData.push(movieInfo);
-        } catch (error) {
-          console.error("Error al obtener URL del archivo", error);
+            moviesData.push(movieInfo);
+          } catch (error) {
+            console.error("Error al obtener URL del archivo", error);
+          }
         }
-      }
-    }
 
-    setMovies(moviesData);
-  } catch (error) {
-    console.error("Error al obtener la lista de películas", error);
-  }
-};
-    getMovies();
+        for (const prefix of videosList.prefixes) {
+          const folderList = await listAll(ref(storage, prefix.fullPath));
+
+          for (const item of folderList.items) {
+            try {
+              const downloadURL = await getDownloadURL(item);
+              const movieInfo = {
+                title: item.name,
+                type: item.name.endsWith('.mp4') ? 'video' : 'image',
+                folder: prefix.name,
+                path: downloadURL,
+              };
+
+              moviesData.push(movieInfo);
+            } catch (error) {
+              console.error("Error al obtener URL del archivo", error);
+            }
+          }
+        }
+
+        if (folder === 'videos') {
+          setMovies(moviesData);
+        } else if (folder === 'peliculas') {
+          setMovies2(moviesData);
+        } else if (folder === 'series') {
+          setMovies3(moviesData);
+        }
+      } catch (error) {
+        console.error("Error al obtener la lista de películas", error);
+      }
+    };
+
+    getMovies('videos');
+    getMovies('peliculas');
+    getMovies('series');
   }, [user]);
 
   const handleLogout = (e) => {
@@ -129,6 +138,7 @@ const getMovies = async () => {
       }
     }
   };
+
   return (
     <div className="content-page">
       <div className="navbar">
@@ -171,19 +181,25 @@ const getMovies = async () => {
             />
           </div>
         ) : (
-          <MovieList movies={movies} onSelect={handleMovieSelect} />
+          <>
+            <MovieList movies={movies} onSelect={handleMovieSelect} label="Videos" />
+            <MovieList movies={movies2} onSelect={handleMovieSelect} label="Películas" />
+            <MovieList movies={movies3} onSelect={handleMovieSelect} label="Series" />
+          </>
         )}
       </div>
     </div>
   );
-}
-const MovieList = ({ movies, onSelect }) => {
+};
+
+const MovieList = ({ movies, onSelect, label }) => {
   const handleItemClick = (media) => {
     onSelect(media);
   };
   const images = movies.filter((media) => media.type === 'image');
   return (
     <div className="movie-list">
+      <h2 style={{ color: '#FFFFFF', backgroundColor: '#800080', writingMode: 'vertical-lr' }}>{label}</h2>
       {images.map((media, index) => {
         const fileNameWithoutExtension = media.title.split('.')[0];
         return (
@@ -200,4 +216,5 @@ const MovieList = ({ movies, onSelect }) => {
     </div>
   );
 };
+
 export default ContentPage;
