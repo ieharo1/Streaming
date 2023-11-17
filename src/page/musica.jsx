@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
-function ContentPage() {
+function Musica() {
   const auth = useAuth();
   const user = useAuth().user;
   const displayName = user ? user.displayName : null;
@@ -46,7 +46,7 @@ function ContentPage() {
 
 const getMovies = async () => {
   try {
-    const videosFolderRef = ref(storage, "videos");
+    const videosFolderRef = ref(storage, "peliculas");
     const videosList = await listAll(videosFolderRef);
 
     const moviesData = [];
@@ -200,4 +200,4 @@ const MovieList = ({ movies, onSelect }) => {
     </div>
   );
 };
-export default ContentPage;
+export default Musica;

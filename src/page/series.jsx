@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
-function ContentPage() {
+function Series() {
   const auth = useAuth();
   const user = useAuth().user;
   const displayName = user ? user.displayName : null;
@@ -200,4 +200,4 @@ const MovieList = ({ movies, onSelect }) => {
     </div>
   );
 };
-export default ContentPage;
+export default Series;
