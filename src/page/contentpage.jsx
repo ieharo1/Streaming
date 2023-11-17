@@ -7,7 +7,6 @@ import { Link, useHistory } from "react-router-dom";
 import ReactPlayer from 'react-player';
 
 function ContentPage() {
-  
   const auth = useAuth();
   const user = useAuth().user;
   const displayName = user ? user.displayName : null;
@@ -16,6 +15,7 @@ function ContentPage() {
   const history = useHistory();
   const [menuVisible, setMenuVisible] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -32,6 +32,7 @@ function ContentPage() {
           console.error("Error al obtener URL", error);
         });
     }
+
     const logoRef = ref(storage, "logopmbn.png");
     getDownloadURL(logoRef)
       .then((url) => {
@@ -40,6 +41,62 @@ function ContentPage() {
       .catch((error) => {
         console.error("Error al obtener URL del logo", error);
       });
+
+   // ...
+
+const getMovies = async () => {
+  try {
+    const videosFolderRef = ref(storage, "videos");
+    const videosList = await listAll(videosFolderRef);
+
+    const moviesData = [];
+
+    for (const item of videosList.items) {
+      try {
+        const downloadURL = await getDownloadURL(item);
+        const movieInfo = {
+          title: item.name,
+          type: item.name.endsWith('.mp4') ? 'video' : 'image',
+          folder: 'videos',
+          path: downloadURL,
+        };
+
+        moviesData.push(movieInfo);
+      } catch (error) {
+        console.error("Error al obtener URL del archivo", error);
+      }
+    }
+
+    for (const prefix of videosList.prefixes) {
+      const folderList = await listAll(ref(storage, prefix.fullPath));
+
+      for (const item of folderList.items) {
+        try {
+          const downloadURL = await getDownloadURL(item);
+          const movieInfo = {
+            title: item.name,
+            type: item.name.endsWith('.mp4') ? 'video' : 'image',
+            folder: prefix.name,
+            path: downloadURL,
+          };
+
+          moviesData.push(movieInfo);
+        } catch (error) {
+          console.error("Error al obtener URL del archivo", error);
+        }
+      }
+    }
+
+    setMovies(moviesData);
+  } catch (error) {
+    console.error("Error al obtener la lista de películas", error);
+  }
+};
+
+// ...
+
+
+    getMovies();
   }, [user]);
 
   const handleLogout = (e) => {
@@ -53,13 +110,32 @@ function ContentPage() {
     setMenuVisible(!menuVisible);
   };
 
-  const handleMovieSelect = (movie) => {
-    setSelectedMovie(movie);
-  };
-
   const handleCloseVideo = () => {
     setSelectedMovie(null);
   };
+
+  const handleMovieSelect = async (movie) => {
+    if (movie.type === 'video') {
+      setSelectedMovie(movie);
+    } else {
+      try {
+        // Encuentra el siguiente video en la misma carpeta
+        const nextVideo = movies.find(
+          (m) => m.type === 'video' && m.folder === movie.folder && m.title !== movie.title
+        );
+  
+        if (nextVideo) {
+          setSelectedMovie(nextVideo);
+        } else {
+          console.log("No se encontró otro video en la misma carpeta");
+        }
+      } catch (error) {
+        console.error("Error al seleccionar el siguiente video", error);
+      }
+    }
+  };
+  
+  
 
   return (
     <div className="content-page">
@@ -96,100 +172,50 @@ function ContentPage() {
             <button className="close-button" onClick={handleCloseVideo}>
               X
             </button>
-            
+            <ReactPlayer
+              url={selectedMovie.path}
+              controls
+              width="100%"
+              height="auto"
+            />
           </div>
         ) : (
-          <MovieList onSelect={handleMovieSelect} />
+          <MovieList movies={movies} onSelect={handleMovieSelect} />
         )}
       </div>
     </div>
   );
 }
 
-// ...
-// ...
-const MovieList = ({ onSelect }) => {
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    const storage = getStorage(app);
-    const videosFolderRef = ref(storage, "videos");
-
-    const getMovies = async () => {
-      try {
-        const videosList = await listAll(videosFolderRef);
-
-        const moviesData = [];
-
-        for (const item of videosList.items) {
-          try {
-            const downloadURL = await getDownloadURL(item);
-            const movieInfo = {
-              title: item.name,
-              type: item.name.endsWith('.mp4') ? 'video' : 'image',
-              path: downloadURL,
-            };
-
-            moviesData.push(movieInfo);
-          } catch (error) {
-            console.error("Error al obtener URL del archivo", error);
-          }
-        }
-
-        // Iterar sobre carpetas
-        for (const prefix of videosList.prefixes) {
-          const folderList = await listAll(ref(storage, prefix.fullPath));
-
-          for (const item of folderList.items) {
-            try {
-              const downloadURL = await getDownloadURL(item);
-              const movieInfo = {
-                title: item.name,
-                type: item.name.endsWith('.mp4') ? 'video' : 'image',
-                path: downloadURL,
-              };
-
-              moviesData.push(movieInfo);
-            } catch (error) {
-              console.error("Error al obtener URL del archivo", error);
-            }
-          }
-        }
-
-        setMovies(moviesData);
-      } catch (error) {
-        console.error("Error al obtener la lista de películas", error);
-      }
-    };
-
-    getMovies();
-  }, []);
-
+const MovieList = ({ movies, onSelect }) => {
   const handleItemClick = (media) => {
     onSelect(media);
   };
 
+  const images = movies.filter((media) => media.type === 'image');
+
   return (
     <div className="movie-list">
-      {movies.map((media, index) => (
-        <div key={index} className="movie-item" onClick={() => handleItemClick(media)}>
-          {media.type === 'image' && (
-            <img src={media.path} alt={media.title} />
-          )}
-          {media.type === 'image' && (
-            <div className="video-title">{media.title}</div>
-          )}
-          <ReactPlayer
-              url={media.path}
-              controls
-              width="100%"
-              height="auto"
-            />
-        </div>
-      ))}
+      {images.map((media, index) => {
+        // Extrae el nombre del archivo sin la extensión
+        const fileNameWithoutExtension = media.title.split('.')[0];
+
+        return (
+          <div key={index} className="movie-item" onClick={() => handleItemClick(media)}>
+            {media.type === 'image' && (
+              <div>
+                <img src={media.path} alt={media.title} />
+                <div className="video-title">{fileNameWithoutExtension}</div>
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
-};
 
+  
+  
+};
 
 export default ContentPage;
